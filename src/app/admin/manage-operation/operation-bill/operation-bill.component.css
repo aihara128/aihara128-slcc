@@ -1,0 +1,83 @@
+/* Style สำหรับตารางใบสั่งงาน */
+.invoice-container {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .invoice-header h2, .invoice-header h3, .invoice-header h4 {
+    margin: 5px 0;
+  }
+  
+  .table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  
+  .table-bordered th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .table-bordered td {
+    background-color: #f9f9f9;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  ul {
+    padding-left: 20px;
+  }
+  
+  ul li {
+    margin-bottom: 5px;
+  }
+  
+  /* สีสำหรับแถวต่างๆ */
+  .table-primary {
+    background-color: #e3f2fd;
+  }
+  
+  .table-info {
+    background-color: #d1ecf1;
+  }
+  
+  .table-success {
+    background-color: #d4edda;
+  }
+  
+  .table-light {
+    background-color: #fefefe;
+  }
+  
+  .table-warning {
+    background-color: #fff3cd;
+  }
+  
+  h2, h3, h4 {
+    color: #007bff; /* สีฟ้าสำหรับหัวข้อ */
+  }
+  
+  h4 {
+    margin-top: 10px;
+    font-size: 1.2em;
+  }
+  

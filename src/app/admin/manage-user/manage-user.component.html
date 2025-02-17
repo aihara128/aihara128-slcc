@@ -1,0 +1,85 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="p-4 bg-dark text-white rounded shadow-sm">
+  <h2 class="text-center mb-4">เพิ่มผู้ใช้งาน</h2>
+
+  <div class="mb-3">
+    <label for="firstName" class="form-label">ชื่อ</label>
+    <input type="text" id="firstName" class="form-control" formControlName="firstName" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="lastName" class="form-label">นามสกุล</label>
+    <input type="text" id="lastName" class="form-control" formControlName="lastName" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
+    <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="position" class="form-label">ตำแหน่งงาน</label>
+    <input type="text" id="position" class="form-control" formControlName="position" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input type="text" id="username" class="form-control" formControlName="username" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" id="password" class="form-control" formControlName="password" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="role" class="form-label">ระดับการจัดการระบบ</label>
+    <select id="role" class="form-select" formControlName="role" required>
+      <option value="1">Admin</option>
+      <option value="0">User</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="roleName" class="form-label">ชื่อการจัดการระบบ</label>
+    <input type="text" id="roleName" class="form-control" formControlName="roleName" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100" [disabled]="userForm.invalid">เพิ่มผู้ใช้งาน</button>
+</form>
+
+
+<table class="table table-dark table-striped mt-5" style="text-align: center;">
+  <thead>
+    <tr>
+    <th>ID</th>
+    <th>ชื่อ</th>
+    <th>นามสกุล</th>
+    <th>เบอร์โทรศัพท์</th>
+    <th>ตำแหน่งงาน</th>
+    <th>Username</th>
+    <th>ระดับการจัดการระบบ</th>
+    <th>ชื่อการจัดการระบบ</th>
+    <th>สถานะบัญชี</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of dataUsers;">
+      <td>{{item.userID}}</td>
+      <td>{{item.firstName}}</td>
+      <td>{{item.lastName}}</td>
+      <td>{{item.phoneNumber}}</td>
+      <td>{{item.position}}</td>
+      <td>{{item.username}}</td>
+      <td>{{item.role}}</td>
+      <td>{{item.roleName}}</td>
+      <td>
+        <input
+          type="checkbox"
+          [checked]="item.isActive == '1'"
+          (change)="toggleActive(item)"
+        >
+      </td>
+      
+    </tr>
+  </tbody>
+</table>

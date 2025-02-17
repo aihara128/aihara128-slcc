@@ -1,0 +1,188 @@
+<div class="container-fluid">
+
+    <div class="card mb-3">
+        <div class="card-header"><span>ตั้งค่าเดือนปี</span></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col mb-3 mt-3 d-flex justify-content-center align-items-center">
+                    <label for="selectYear" class="form-label mb-0 d-flex align-items-center">
+                        <span class="me-2">เลือกปี :</span>
+                    </label>
+                    <select id="selectYear" class="form-select" aria-label="selectYear" style="width: 300px;"
+                        (change)="onYearChange($event)">
+                        <option value="0" selected>ทั้งหมด</option>
+                        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                    </select>
+                </div>
+                
+                
+                <div class="col">
+                    <div *ngIf="selectedYear !== '0'" class="col mb-3 mt-3 d-flex justify-content-center align-items-center">
+                        <label for="monthSelect" class="form-label mb-0 d-flex align-items-center">
+                            <span class="me-2">เลือกเดือน  :</span>
+                        </label>
+                        <select id="monthSelect" class="form-select" style="width: 300px;" [(ngModel)]="selectedMonth"
+                            (change)="onMonthChange($event)">
+                            <option value="0">ทุกเดือน</option>
+                            <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col-md text-center">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center text-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                              ค่าบริการ
+                            </div>
+                            <!-- ใช้ getTotalSumPrice() เพื่อแสดงผลรวมของ sumPrice -->
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                              B {{ getTotalSumPrice() | number }}
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center text-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                จำนวนบริการ
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ serviceCount }} ครั้ง
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <span>{{topic_barGraph}}</span>
+                </div>
+                <div class="card-body">
+                    <p-chart height="200px" width="100%" type="bar" [data]="chartData" [options]="chartOptions" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md">
+            <div class="card ">
+                <div class="card-header">
+                    <span>จำนวนขนาดของการบริการ</span>
+                </div>
+                <div class="card-body">
+                    <p-chart type="pie" height="300px" [data]="pieChartDataBySize" [options]="pieChartOptionsBySize" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
+                    <span>รายการบริการ</span>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">บริการ</th>
+                          <th scope="col">จำนวน</th>
+                          <th scope="col">รวม</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Loop ข้อมูลจาก Angular -->
+                        <tr *ngFor="let service of summarizedServices">
+                          <th scope="row">{{ service.serviceName }}</th>
+                          <td>{{ service.count }}</td>
+                          <td>{{ service.total | number }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md">
+            <div class="card ">
+                <div class="card-header">
+                    <span>ยี่ห้อรถที่มารับบริการ</span>
+                </div>
+                <div class="card-body">
+                    <p-chart type="pie" height="300px" [data]="pieChartDataByBrand" [options]="pieChartOptionsByBrand" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card ">
+                <div class="card-header">
+                    <span>ประเภทรถรถที่มารับบริการ</span>
+                </div>
+                <div class="card-body">
+                    <p-chart type="pie" height="300px" [data]="pieChartDataByType" [options]="pieChartOptionsByType" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <span>รายงานการบริการ</span>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                          <tr>
+                            <th scope="col">ว/ด/ป</th>
+                            <th scope="col">ขนาด</th>
+                            <th scope="col">รายการบริการ</th>
+                            <th scope="col">รวมชำระ</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- Loop through reports and display each row -->
+                          <tr *ngFor="let report of reports">
+                            <td>{{ report.date | date:'dd/MM/yyyy' }}</td>
+                            <td>{{ report.sizeName }}</td>
+                            <td>
+                              <!-- Display services as a newline-separated list -->
+                              <!-- <div *ngFor="let service of report.serviceName">{{ service }}</div> -->
+                              <ul>
+                                <li *ngFor="let service of report.services">
+                                  {{ service.serviceName }}: {{ service.price | number }}
+                                </li>
+                              </ul>
+                               
+                            </td>
+                            <td>{{ report.sumPrice | number }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-primary back-to-top" (click)="scrollToTop()" *ngIf="isShowScroll">
+    <i class="bi bi-caret-up-fill"></i>
+</button>
+  

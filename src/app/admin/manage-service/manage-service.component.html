@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <form #f="ngForm" (ngSubmit)="Submit()" novalidate>
+        <div class="row">
+            <div class="col-md-6">
+                ชื่อลูกค้า
+                <input type="text" class="form-control mb-3" id="customerName" [(ngModel)]="customerName" name="customerName">
+                <div *ngIf="f.submitted && !customerName" class="text-danger">กรุณาใส่ชื่อลูกค้า</div>
+            </div>
+            <div class="col-md-3">
+                เบอร์ลูกค้า
+                <input type="text" class="form-control mb-3" id="customerPhone" [(ngModel)]="customerPhone" name="customerPhone">
+                <div *ngIf="f.submitted && !customerName" class="text-danger">กรุณาใส่เบอร์ลูกค้า</div>
+            </div>
+            <div class="col-md-3">
+                ป้ายทะเบียน
+                <input type="text" class="form-control mb-3" id="customerCarNo" [(ngModel)]="customerCarNo" name="customerCarNo">
+                <div *ngIf="f.submitted && !customerName" class="text-danger">กรุณาใส่ป้ายทะเบียน</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                ยี่ห้อรถ
+                <select class="form-select" aria-label="selectBrand" [(ngModel)]="selectedBrand" name="selectedBrand">
+                    <option value="" selected disabled>กรุณาเลือกแบรนด์</option>
+                    <option *ngFor="let item of carBrand" [value]="item.brandID">{{item.brandName}}</option>
+                </select>
+                <div *ngIf="f.submitted && !selectedBrand" class="text-danger">กรุณาเลือกยี่ห้อรถ</div>
+            </div>
+            <div class="col-md-6">
+                ประเภทรถ
+                <select class="form-select" aria-label="selectType" [(ngModel)]="selectedType" name="selectedType">
+                    <option value="" selected disabled>กรุณาเลือกประเภท</option>
+                    <option *ngFor="let item of carType" [value]="item.typeID">{{ item.typeName }}</option>
+                </select>
+                <div *ngIf="f.submitted && !selectedType" class="text-danger">กรุณาเลือกประเภทรถ</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="mt-3">
+                    <label class="form-label me-2">ขนาด</label>
+
+                    <div class="form-check form-check-inline" *ngFor="let item of carSize;let i = index">
+                        <input class="form-check-input" type="radio" name="selectedSize" [value]="item.sizeID"
+                            [id]="'option' + i" [(ngModel)]="selectedSize">
+                        <label class="form-check-label" [for]="'option' + i">{{item.sizeName}}</label>
+                    </div>
+                    <div *ngIf="f.submitted && !selectedSize" class="text-danger">กรุณาเลือกขนาด</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                รายการบริการ
+                <div class="mb-3">
+                    <div class="form-check" *ngFor="let item of carService;let i = index">
+                        <input class="form-check-input" type="checkbox" value="" [id]="'ListService1' + i"
+                            [(ngModel)]="item.selected" name="service{{i}}">
+                        <label class="form-check-label" [for]="'ListService' + i">
+                            {{item.listName}}
+                        </label>
+                    </div>
+                    <div *ngIf="f.submitted && !isServiceSelected()" class="text-danger">
+                        กรุณาเลือกรายการบริการอย่างน้อย 1 รายการ
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                รายละเอียดเพิ่มเติม
+                <input type="text" class="form-control mb-3" id="moreDetail" [(ngModel)]="comment" name="comment">
+            </div>
+        </div>
+        <button class="btn btn-dark" type="submit" [disabled]="f.invalid">
+            <span class="ms-1 d-none d-sm-inline">บันทึกรายการ</span>
+        </button>
+    </form>
+    <div class="row">
+        <div class="col-md">
+            ราคา
+            <input type="text" class="form-control" id="showPrice" [value]="getPriceDisplay()" disabled>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,250 @@
+<button *ngIf="isAdmin==='1'" class="btn btn-dark me-3" data-bs-toggle="modal" data-bs-target="#modalSize"
+  (click)="openModalSize('insertSize','','')">
+  <i class="bi bi-plus-square"></i><span class="ms-2 d-none d-sm-inline">เพิ่ม Size</span>
+</button>
+
+<button *ngIf="isAdmin==='1'" class="btn btn-dark me-3" data-bs-toggle="modal" data-bs-target="#modalList"
+  (click)="openModalList('insertList','','')">
+  <i class="bi bi-plus-square"></i><span class="ms-2 d-none d-sm-inline">เพิ่ม Service</span>
+</button>
+
+<button *ngIf="isAdmin==='1'" class="btn btn-dark me-3" data-bs-toggle="modal" data-bs-target="#modalCarBrand"
+  (click)="openModalCarBrand('insertBrand','','')">
+  <i class="bi bi-plus-square"></i><span class="ms-2 d-none d-sm-inline">เพิ่ม ยี่ห้อรถ</span>
+</button>
+
+<button *ngIf="isAdmin==='1'" class="btn btn-dark me-3" data-bs-toggle="modal" data-bs-target="#modalCarType"
+  (click)="openModalCarType('insertType','','')">
+  <i class="bi bi-plus-square"></i><span class="ms-2 d-none d-sm-inline">เพิ่ม ประเภทรถ</span>
+</button>
+
+
+
+<table class="table table-dark table-striped mt-5" style="text-align: center;">
+  <thead>
+    <tr>
+      <th scope="col">Size</th>
+      <th scope="col" *ngFor="let item of uniqueListNames;">{{item.name}}
+        <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-warning ms-3" data-bs-toggle="modal" data-bs-target="#modalList"
+          (click)="openModalList('updateList', item.id, item.name)">
+          <i class="bi bi-pencil-fill"></i>
+        </button>
+        <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#modalList"
+          (click)="openModalList('deleteList', item.id, item.name)">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of uniqueSizeNames">
+      <td scope="row">{{item.name}}
+        <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-warning ms-3" data-bs-toggle="modal" data-bs-target="#modalSize"
+          (click)="openModalSize('updateSize', item.id, item.name)">
+          <i class="bi bi-pencil-fill"></i>
+        </button>
+        <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#modalSize"
+          (click)="openModalSize('deleteSize', item.id, item.name)">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </td>
+      <ng-template ngFor let-price [ngForOf]="sizeListPrices">
+        <td *ngIf="price.sizeID === +item.id;">
+          {{price.price}}
+          <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-warning ms-3" data-bs-toggle="modal"
+            data-bs-target="#modalUpdatePrice"
+            (click)="openModalUpdatePrice(price.priceID, price.sizeID, price.sizeName,price.listID ,price.listName, price.price)">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+        </td>
+      </ng-template>
+    </tr>
+
+  </tbody>
+</table>
+
+<div class="row">
+  <div class="col">
+    <table class="table table-dark table-striped mt-5" style="text-align: center;">
+      <thead>
+        <tr>
+          <th>ยี่ห้อรถ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of carBrand;">
+          <td>{{item.brandName}}
+            <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-warning ms-3" data-bs-toggle="modal" data-bs-target="#modalCarBrand"
+          (click)="openModalCarBrand('updateBrand', item.brandID, item.brandName)">
+          <i class="bi bi-pencil-fill"></i>
+        </button>
+        <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#modalCarBrand"
+          (click)="openModalCarBrand('deleteBrand', item.brandID, item.brandName)">
+          <i class="bi bi-x-square"></i>
+        </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <table class="table table-dark table-striped mt-5" style="text-align: center;">
+      <thead>
+        <tr>
+          <th>ประเภทรถ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of carType;">
+          <td>{{item.typeName}}
+            <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-warning ms-3" data-bs-toggle="modal" data-bs-target="#modalCarType"
+          (click)="openModalCarType('updateType', item.typeID, item.typeName)">
+          <i class="bi bi-pencil-fill"></i>
+        </button>
+        <button *ngIf="isAdmin==='1'" class="btn btn-sm btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#modalCarType"
+          (click)="openModalCarType('deleteType', item.typeID, item.typeName)">
+          <i class="bi bi-x-square"></i>
+        </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div *ngIf="isAdmin==='1'" class="modal fade" id="modalUpdatePrice" tabindex="-1"
+  aria-labelledby="modalUpdatePriceLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalUpdatePriceLabel">แก้ไขราคา</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ขนาด : <label>{{showSizeName}}</label><br>
+        บริการ : <label>{{showListName}}</label><br>
+        ราคาเดิม : <label>{{showPrice}}</label><br>
+        <input type="number" [(ngModel)]="updateDataPrice">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updatePrice(selectedPriceId)" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isAdmin==='1'" class="modal fade" id="modalSize" tabindex="-1" aria-labelledby="modalSizeLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSizeLabel">{{modalSizeHead}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetFormSize()"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="col-md">
+          {{modalSizeBody}}
+          <input type="text" class="form-control mb-3" [(ngModel)]="inputSize" name="size" [disabled]="sizeDisable">
+        </div>
+
+        <ul>ขนาดที่มี
+          <li *ngFor="let item of uniqueSizeNames">{{item.name}}</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetFormSize()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="manageSize()" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isAdmin==='1'" class="modal fade" id="modalList" tabindex="-1" aria-labelledby="modalListLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalListLabel">{{modalListHead}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetFormList()"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="col-md">
+          {{modalListBody}}
+          <input type="text" class="form-control mb-3" [(ngModel)]="inputList" name="Service" [disabled]="listDisable">
+        </div>
+
+        <ul>รายการบริการที่มี
+          <li *ngFor="let item of uniqueListNames">{{item.name}}</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetFormList()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="manageList()" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isAdmin==='1'" class="modal fade" id="modalCarType" tabindex="-1" aria-labelledby="modalCarTypeLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCarTypeLabel">{{modalTypeHead}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetFormType()"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="col-md">
+          {{modalTypeBody}}
+          <input type="text" class="form-control mb-3" [(ngModel)]="inputCarType" name="carType" [disabled]="typeDisable">
+        </div>
+
+        <ul>ประเภทรถที่มี
+          <li *ngFor="let item of carType">{{item.typeName}}</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetFormType()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="manageCarType()" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isAdmin==='1'" class="modal fade" id="modalCarBrand" tabindex="-1" aria-labelledby="modalCarBrandLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCarBrandLabel">{{modalBrandHead}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetFormBrand()"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="col-md">
+          {{modalBrandBody}}
+          <input type="text" class="form-control mb-3" [(ngModel)]="inputCarBrand" name="carBrand" [disabled]="brandDisable">
+        </div>
+
+        <ul>ยี่ห้อรถที่มี
+          <li *ngFor="let item of carBrand">{{item.brandName}}</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetFormBrand()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="manageCarBrand()" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

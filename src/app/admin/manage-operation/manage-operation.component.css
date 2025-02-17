@@ -1,0 +1,62 @@
+/* เพิ่มสีสันให้ตาราง */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+/* สไตล์สำหรับแถวหัวตาราง */
+.thead-dark th {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+}
+
+/* เพิ่มความสวยงามให้กับแถวต่างๆ */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* ปรับแต่งปุ่มให้สวยงาม */
+button.btn {
+    font-size: 14px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+/* เพิ่มการตกแต่งที่ยืดหยุ่นสำหรับข้อมูลในคอลัมน์ลูกค้า */
+td span {
+    font-size: 14px;
+}
+
+/* เพิ่มเส้นขอบให้ตาราง */
+.table-bordered td, .table-bordered th {
+    border: 1px solid #ddd;
+}
+
+/* ปรับแต่งข้อมูลที่แสดงในแต่ละเซลล์ */
+td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+/* เพิ่มระยะห่างระหว่างบรรทัดในตาราง */
+ul {
+    padding-left: 20px;
+}
+
+.btn-group .btn {
+    font-weight: bold; 
+    padding: 5px 10px;
+    font-size: 12px 
+  }
+  
+  .btn-group .btn:hover {
+    opacity: 0.8; /* เพิ่มเอฟเฟกต์เมื่อวางเมาส์ */
+  }

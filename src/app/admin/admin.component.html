@@ -1,0 +1,69 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">SinLif Manage</span>
+                </a>
+                
+                <ul class="nav nav-pills flex-column mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item" *ngIf="isAdmin==='1'">
+                        <button class="btn btn-dark" (click)="setComponent('ManageUser')">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">จัดการผู้ใช้งาน</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-dark" (click)="setComponent('ManageList')">
+                            <i class="fs-4 bi bi-pin-angle"></i> <span class="ms-1 d-none d-sm-inline">จัดการรายการ</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-dark" (click)="setComponent('ManageService')">
+                            <i class="fs-4 bi bi-floppy"></i> <span class="ms-1 d-none d-sm-inline">บันทึกบริการ</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-dark" (click)="setComponent('ManageOperation')">
+                            <i class="fs-4 bi-receipt-cutoff"></i> <span class="ms-1 d-none d-sm-inline">ใบสั่งงาน</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-dark" (click)="setComponent('Report')">
+                            <i class="fs-4 bi bi-clipboard-check"></i> <span class="ms-1 d-none d-sm-inline">รายงาน</span>
+                        </button>
+                    </li>
+                </ul>
+
+                <br>
+
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle"> -->
+                        <span class="d-none d-sm-inline mx-1">{{sessionName}}<br>( {{sessionRoleName}} )</span>
+                    </a>
+                    
+                    <ul class="dropdown-menu text-small shadow">
+                        <li>
+                            <button class="btn btn dark" (click)="logoutAdmin()">
+                                <i class="fs-4 bi bi-x-circle"></i> <span class="ms-1 d-none d-sm-inline">Sign out</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="col py-3" [ngSwitch]="selectedComponent" style="background-color:gray;">
+
+            <app-manage-list *ngSwitchCase="'ManageList'"></app-manage-list>
+            <app-manage-service (dataEmitter)="receiveData($event)" *ngSwitchCase="'ManageService'"></app-manage-service>
+            <app-report *ngSwitchCase="'Report'"></app-report>
+            <app-manage-user *ngSwitchCase="'ManageUser'"></app-manage-user>
+            <app-manage-operation *ngSwitchCase="'ManageOperation'"></app-manage-operation>
+
+        </div>
+    </div>
+</div>
+
+  

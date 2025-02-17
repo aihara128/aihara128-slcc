@@ -1,0 +1,102 @@
+<div *ngIf="selectedType == 'operation'">
+  <div *ngIf="selectedItem" class="invoice-container">
+    <div class="invoice-header">
+      <h2 class="text-center">ร้านซินลิฟ คาร์แคร์</h2>
+      <h3 class="text-center">sin&lift carcare</h3>
+      <h4 class="text-center">ใบสั่งงาน</h4>
+    </div>
+  
+    <table class="table table-bordered">
+      <thead class="table-primary">
+        <tr>
+          <th colspan="2" class="text-center">รายละเอียดใบสั่งงาน</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>วันที่ดำเนินงาน:</strong> {{ selectedItem.date }}</td>
+          <td><strong>รหัส:</strong> {{ selectedItem.reportID }}</td>
+        </tr>
+        <tr class="table-info">
+          <td><strong>ผู้บันทึกใบสั่งงาน:</strong> {{ selectedItem.createdBy }}</td>
+          <td>
+            <strong>ผู้ใช้บริการ:</strong><br />
+            ชื่อลูกค้า: {{ selectedItem.customerName }}<br />
+            เบอร์: {{ selectedItem.customerPhone }}<br />
+            ทะเบียนรถ: {{ selectedItem.customerCarNo }}<br />
+            ยี่ห้อรถ: {{ selectedItem.brandName }}<br />
+            ประเภทรถ: {{ selectedItem.typeName }}<br />
+          </td>
+        </tr>
+        <tr class="table-success">
+          <td colspan="2"><strong>รายการรับบริการ:</strong></td>
+        </tr>
+        <tr *ngFor="let service of selectedItem.services" class="table-light">
+          <td>
+            {{ service.serviceName }} [ {{ selectedItem.sizeName }} ]
+          </td>
+          <td>{{ service.price }} บาท</td>
+        </tr>
+        <tr class="table-warning">
+          <td><strong>รวมชำระ:</strong></td>
+          <td><strong>{{ selectedItem.sumPrice }} บาท </strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="selectedType == 'bill'">
+  <div *ngIf="selectedItem" class="invoice-container">
+    <div class="invoice-header">
+      <h2 class="text-center">ร้านซินลิฟ คาร์แคร์</h2>
+      <h3 class="text-center">sin&lift carcare</h3>
+      <h4 class="text-center">ใบเสร็จ</h4>
+    </div>
+  
+    <table class="table table-bordered">
+      <thead class="table-primary">
+        <tr>
+          <th colspan="2" class="text-center">รายละเอียดใบเสร็จ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>วันที่ดำเนินงาน:</strong> {{ selectedItem.date }}</td>
+          <td><strong>รหัส:</strong> {{ selectedItem.reportID }}</td>
+        </tr>
+        <tr class="table-info">
+          <td><strong>ผู้บันทึกใบสั่งงาน:</strong> {{ selectedItem.createdBy }}</td>
+          <td>
+            <strong>ผู้ใช้บริการ:</strong><br />
+            ชื่อลูกค้า: {{ selectedItem.customerName }}<br />
+            เบอร์: {{ selectedItem.customerPhone }}<br />
+            ทะเบียนรถ: {{ selectedItem.customerCarNo }}<br />
+            ยี่ห้อรถ: {{ selectedItem.brandName }}<br />
+            ประเภทรถ: {{ selectedItem.typeName }}<br />
+          </td>
+        </tr>
+        <tr class="table-success">
+          <td colspan="2"><strong>รายการรับบริการ:</strong></td>
+        </tr>
+        <tr *ngFor="let service of selectedItem.services" class="table-light">
+          <td>
+            {{ service.serviceName }} [ {{ selectedItem.sizeName }} ]
+          </td>
+          <td>{{ service.price }} บาท</td>
+        </tr>
+        <tr class="table-warning">
+          <td><strong>รวมชำระ:</strong></td>
+          <td><strong>{{ selectedItem.sumPrice }} บาท </strong></td>
+        </tr>
+        <tr class="table-warning">
+          <td colspan="2"><strong>ผู้รับเงิน: {{recieve}} </strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  
+  
